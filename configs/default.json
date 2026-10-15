@@ -1,0 +1,26 @@
+{
+  "input_weeks": 20,
+  "filters_per_scale": 8,
+  "top_k": 10,
+  "horizons": [1, 2, 3],
+  "scaler_fit_start": "2020-01-01",
+  "scaler_fit_end": "2020-12-31",
+  "initial_cutoff": "2021-01-01",
+  "relation_pretraining": {
+    "max_epochs": 20, "patience": 3, "learning_rate": 0.0001,
+    "weight_decay": 0.01, "max_grad_norm": 1.0
+  },
+  "core_training": {
+    "max_epochs": 1500, "patience": 200, "learning_rate": 0.001,
+    "weight_decay": 0.0005, "max_grad_norm": null
+  },
+  "joint_training": {
+    "max_epochs": 20, "patience": 3, "learning_rate": 0.0001,
+    "weight_decay": 0.0005, "max_grad_norm": 1.0
+  },
+  "decision_learning_rate": 0.00001,
+  "calibration_training": {
+    "max_epochs": 1500, "patience": 200, "learning_rate": 0.001,
+    "weight_decay": 0.0005, "max_grad_norm": null
+  }
+}

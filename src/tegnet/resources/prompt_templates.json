@@ -1,0 +1,15 @@
+{
+  "summary_prompt": {
+    "[SYSTEM]": "You summarize regional epidemic histories for forecasting.\nDescribe the observed histories of the target and source regions.",
+    "[USER / INPUT]": "Target region: {target_region}\nCandidate source region: {source_region}\nHistorical window: {window_start} to {forecast_origin}\nCase unit and scale: {case_unit_and_scale}\nWeekly cases, ordered from earliest to latest:\nTarget: {target_case_history}\nSource: {source_case_history}\nImportation pressure from {source_region} to {target_region}\nat {forecast_origin}: {importation_pressure}\nDefinition: inbound passenger-flow share multiplied by the sum\nof source case rates per 10,000 over the two latest complete weeks.",
+    "[TASK]": "1. Describe each region's overall trend, within-window fluctuations,\n   and recent changes.\n2. Compare the direction and observed timing of changes across the\n   two regions, using specific weeks or values where informative.\n3. Report the supplied source-to-target importation pressure\n   as context for the regional comparison.\n4. Ground the summary in the supplied observations through the\n   forecast origin. Mark missing observations as unknown.",
+    "[OUTPUT FORMAT]": "Target: {trend; fluctuations; recent changes}\nSource: {trend; fluctuations; recent changes}\nComparison: {similarities and differences in direction and timing}\nImportation pressure: {source-to-target direction; supplied score}\n\nUse these four fields to form one concise summary S."
+  },
+  "teacher_annotation_prompt": {
+    "[SYSTEM]": "You assess the suitability of source-region case information\nfor a target-region epidemic forecast.",
+    "[USER / INPUT]": "Target region: {target_region}\nCandidate source region: {source_region}\nForecast origin: {forecast_origin}\nForecast horizon: {forecast_horizon} weeks\nTarget: the weekly case value at {target_week}\nHistorical time-series summary S: {historical_summary}\nExternal event text E: {dated_event_text_available_by_forecast_origin}",
+    "[TASK]": "Assess whether the source history is suitable as reference\ninformation for the target forecast. Compare the epidemic states\nin S and interpret E using its timing and regional scope. Judge\npredictive relevance from the supplied historical and event context.",
+    "[OPTIONS]": "0 - Reject: the supplied context gives insufficient support for\n    using the source history as reference information.\n1 - Retain: the supplied context supports using the source history\n    as reference information for the target forecast.",
+    "[OUTPUT FORMAT]": "Return one JSON object: {\"label\": 0} or {\"label\": 1}."
+  }
+}
